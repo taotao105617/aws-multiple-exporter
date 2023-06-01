@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  redis:
+    image: "aws-exporter-app:latest"
+    command: python3 app.py redis
+    restart: always
+    network_mode: host
+    depends_on:
+      - redis-exporter
+    volumes:
+      - ./conf/metrics:/app/conf/metrics
+    environment:
+      TZ: Asia/Shanghai
+
+  redis-exporter:
+    image: "redis:6.2"
+    hostname: redis
+    restart: always
+    network_mode: host
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai

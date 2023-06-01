@@ -1,0 +1,99 @@
+task:
+  - namespace: redis
+    metrics:
+      - metric_name: CPUUtilization
+        statistics: Average
+        metric_desc: 'DESC: redis cpu unit: %'
+      - metric_name: FreeableMemory
+        statistics: Average
+        metric_desc: 'DESC: 可用内存 unit: MB'
+      - metric_name: ActiveDefragHits
+        statistics: Average
+        metric_desc: 'DESC: 活动碎片整理进程每分钟执行的值重新分配次数 unit: count'
+      - metric_name: BytesUsedForCache
+        statistics: Average
+        metric_desc: 'DESC: Redis 为所有目的分配的字节总数，包括数据集、缓冲区等 unit: byte'
+      - metric_name: BytesReadFromDisk
+        statistics: Average
+        metric_desc: 'DESC: 每分钟从磁盘读取的字节总数。仅支持使用数据分层的集群 unit: byte'
+      - metric_name: BytesWrittenToDisk
+        statistics: Average
+        metric_desc: 'DESC: 每分钟写入磁盘的总字节数。仅支持使用数据分层的集群。 unit: byte'
+      - metric_name: CacheHits
+        statistics: Average
+        metric_desc: 'DESC: 成功的只读键查找次数 unit: count'
+      - metric_name: CacheMisses
+        statistics: Average
+        metric_desc: 'DESC: 不成功的只读键查找次数 unit: count'
+      - metric_name: CommandAuthorizationFailures
+        statistics: Average
+        metric_desc: 'DESC: 用户尝试运行他们无权调用的命令失败的总次数 unit: count'
+      - metric_name: CacheHitRate
+        statistics: Average
+        metric_desc: 'DESC: Redis实例的缓存命中率 unit: %'
+      - metric_name: ChannelAuthorizationFailures
+        statistics: Average
+        metric_desc: 'DESC: 用户尝试访问他们无权访问的频道失败的总次数 unit: count'
+      - metric_name: CurrConnections
+        statistics: Average
+        metric_desc: 'DESC: 客户端连接数，不包括来自只读副本的连接 unit: count'
+      - metric_name: CurrItems
+        statistics: Average
+        metric_desc: 'DESC: 缓存中的key数。这是从 Redis keyspace统计数据得出的，对整个键空间中的所有键求和 unit: count'
+      - metric_name: CurrVolatileItems
+        statistics: Average
+        metric_desc: 'DESC: 设置了 ttl 的所有的key总数 unit: count'
+      - metric_name: DatabaseCapacityUsagePercentage
+        statistics: Average
+        metric_desc: 'DESC: 正在使用的集群的总数据容量的百分比 used_memory/maxmemory unit: %'
+#      - metric_name: DatabaseCapacityUsageCountedForEvictPercentage
+#        statistics: Average
+#        metric_desc: 'DESC: 正在使用的集群总数据容量的百分比，不包括用于开销和 COB 的内存 unit: %'
+      - metric_name: DatabaseMemoryUsagePercentage
+        statistics: Average
+        metric_desc: 'DESC: 正在使用的集群内存的百分比 unit: %'
+      - metric_name: DatabaseMemoryUsageCountedForEvictPercentage
+        statistics: Average
+        metric_desc: 'DESC: 正在使用的集群内存百分比，不包括用于开销和 COB 的内存 unit: %'
+      - metric_name: DB0AverageTTL
+        statistics: Average
+        metric_desc: 'DESC: DB0AverageTTL unit: count'
+      - metric_name: EngineCPUUtilization
+        statistics: Average
+        metric_desc: 'DESC: 提供 Redis 引擎线程的 CPU 使用率 unit: %'
+      - metric_name: Evictions
+        statistics: Average
+        metric_desc: 'DESC: 由于限制而被逐出的键数 unit: count'
+      - metric_name: GlobalDatastoreReplicationLag
+        statistics: Average
+        metric_desc: 'DESC: 从节点最大延迟 unit: s'
+      - metric_name: IsMaster
+        statistics: Average
+        metric_desc: 'DESC: 指示该节点是否是当前分片/集群的主节点。指标可以是 0（非主要）或 1（主要） unit: count'
+      - metric_name: MemoryFragmentationRatio
+        statistics: Average
+        metric_desc: 'DESC: 表示Redis引擎分配内存的效率。某些阈值表示不同的行为。推荐值是让碎片高于 1.0。这是从 Redis INFOmem_fragmentation_ratio statistic的计算出来的. unit: count'
+      - metric_name: NewConnections
+        statistics: Average
+        metric_desc: 'DESC: 在此期间服务器已接受的连接总数 unit: count'
+      - metric_name: NumItemsReadFromDisk
+        statistics: Average
+        metric_desc: 'DESC: 每分钟从磁盘检索的键值对的数量 unit: count'
+      - metric_name: NumItemsWrittenToDisk
+        statistics: Average
+        metric_desc: 'DESC: 每分钟写入磁盘的键值对的数量 unit: count'
+      - metric_name: Reclaimed
+        statistics: Average
+        metric_desc: 'DESC: 密钥过期事件的总数 unit: count'
+      - metric_name: ReplicationBytes
+        statistics: Average
+        metric_desc: 'DESC: 对于复制配置中的节点，ReplicationBytes报告主节点发送到其所有副本的字节数。该指标代表复制组上的写入负载 unit: byte'
+      - metric_name: ReplicationLag
+        statistics: Average
+        metric_desc: 'DESC: 从节点延迟 unit: s'
+      - metric_name: SaveInProgress
+        statistics: Average
+        metric_desc: 'DESC: INFOrdb_bgsave_in_progress 进行：1，否则：0 unit: count'
+      - metric_name: TrafficManagementActive
+        statistics: Average
+        metric_desc: 'DESC: 指示 ElastiCache for Redis 是否正在通过调整分配给传入命令、监控或复制的流量来主动管理流量。当发送到节点的命令多于 Redis 可以处理的命令时，流量将得到管理，并用于维持引擎的稳定性和最佳运行。1 的数据点都可能表示该节点对于所提供的工作负载而言规模不足。 unit: count'

@@ -1,0 +1,60 @@
+task:
+  - namespace: rds
+    metrics:
+      - metric_name: CPUUtilization
+        statistics: Average
+        metric_desc: 'DESC: redis cpu unit: %'
+      - metric_name: FreeableMemory
+        statistics: Average
+        metric_desc: 'DESC: 可用内存 unit: MB'
+      - metric_name: BinLogDiskUsage
+        statistics: Average
+        metric_desc: 'DESC: 二进制日志占用的磁盘空间量 unit: MB'
+      - metric_name: CheckpointLag
+        statistics: Average
+        metric_desc: 'DESC: 自最近检查点以来的时间量 unit: s'
+      - metric_name: ConnectionAttempts
+        statistics: Average
+        metric_desc: 'DESC: 尝试连接到实例的次数，无论成功与否 unit: count'
+      - metric_name: DatabaseConnections
+        statistics: Average
+        metric_desc: 'DESC: 数据库连接数 unit: count'
+      - metric_name: DiskQueueDepth
+        statistics: Average
+        metric_desc: 'DESC: 等待访问磁盘的未完成 I/O（读/写请求）数 unit: count'
+      - metric_name: FreeLocalStorage
+        statistics: Average
+        metric_desc: 'DESC: 可用的本地存储空间量 unit: MB'
+      - metric_name: FreeStorageSpace
+        statistics: Average
+        metric_desc: 'DESC: 可用存储空间量 unit: MB'
+      - metric_name: NetworkReceiveThroughput
+        statistics: Average
+        metric_desc: 'DESC: 网络接收吞吐量 unit: MB/s'
+      - metric_name: NetworkTransmitThroughput
+        statistics: Average
+        metric_desc: 'DESC: 网络传输吞吐量 unit: MB/s'
+      - metric_name: OldestReplicationSlotLag
+        statistics: Average
+        metric_desc: 'DESC: 最早的复制槽滞后 unit: byte'
+      - metric_name: ReadIOPS
+        statistics: Average
+        metric_desc: 'DESC: 平均每秒磁盘读取 I/O 操作数 unit: count/s'
+      - metric_name: ReadLatency
+        statistics: Average
+        metric_desc: 'DESC: 读取延迟，每个磁盘 I/O 操作所花费的平均时间 unit: s'
+      - metric_name: ReadThroughput
+        statistics: Average
+        metric_desc: 'DESC: 读取吞吐量，每秒从磁盘读取的平均字节数 unit: byte/s'
+      - metric_name: ReplicaLag
+        statistics: Average
+        metric_desc: 'DESC: 复制延迟 unit: s'
+      - metric_name: WriteIOPS
+        statistics: Average
+        metric_desc: 'DESC: 写入 IOPS unit: count/s'
+      - metric_name: WriteLatency
+        statistics: Average
+        metric_desc: 'DESC: 写入延迟 unit: count/s'
+      - metric_name: WriteThroughput
+        statistics: Average
+        metric_desc: 'DESC: 写入吞吐量 unit: MB/s'

@@ -4,16 +4,18 @@ import time
 from datetime import datetime, timedelta
 from prometheus_client.core import GaugeMetricFamily
 from prometheus_client import Counter
-from service.aws_redis.aws_redis_svc import AwsRedisSvc
+from service.aws_svc import AwsSvc
 from lib.yaml_reader import YamlReader
 from lib.tool import camel_to_underline, get_lbs, get_instance_lb
 from lib.aws_client import metric_data_queries
 from lib.logger import logs
 from conf.configs import ProductNamespaceF
 
+
 # 计算调用cloudwatch次数，可用于评估费用
-aws_cloudwatch_request_count = Counter('aws_cloudwatch_request_count', 'DESC: 调用cloudwatch次数 unit: count', ['product'])
+aws_cloudwatch_request = Counter('aws_cloudwatch_request_count', 'DESC: 调用cloudwatch次数 unit: count', ['product'])
 # 计算调用cloudwatch指标总数
+
 aws_cloudwatch_metric_request = Counter('aws_cloudwatch_metric_request_count', 'DESC: 调用cloudwatch 指标总数 unit: '
                                                                                'count', ['product'])
 
@@ -46,15 +48,12 @@ class AwsCollector(object):
         return generates
 
     def get_product_instance_info(self):
-        svc = ''
-        aws_instance_infos = ''
         # 获取所有账号实例信息（cache）
-        if self.product == 'redis':
-            svc = AwsRedisSvc()
-            aws_instance_infos = svc.get_redis_cache()
+        svc = AwsSvc(self.product)
+        aws_instance_infos = svc.get_cache()
         return svc, aws_instance_infos
 
-    def get_monitor_data(self, generates, aws_instance_infos, aws_svc):
+    def aws_exporter_monitor_data(self, generates, aws_instance_infos, aws_svc):
         monitor_data_list = []
         end_time = datetime.utcnow()
         start_time = end_time - timedelta(minutes=6)
@@ -71,7 +70,7 @@ class AwsCollector(object):
             for region, mqs_list in redis_regions.items():
                 for mqs in mqs_list:
                     num += 1
-                    aws_cloudwatch_request_count.labels(product=self.product).inc()
+                    aws_cloudwatch_request.labels(product=self.product).inc()
                     aws_cloudwatch_metric_request.labels(product=self.product).inc(len(mqs))
                     # 多线程获取监控数据
                     t = threading.Thread(target=aws_svc.get_monitor_data, args=(account, region, mqs, start_time,
@@ -99,7 +98,7 @@ class AwsCollector(object):
         aws_instance_infos = svc[1]
         aws_svc = svc[0]
         # 获取监控数据
-        monitor_data_list = self.get_monitor_data(generates, aws_instance_infos, aws_svc)
+        monitor_data_list = self.aws_exporter_monitor_data(generates, aws_instance_infos, aws_svc)
         # 根据返回结果和prometheus对象对应关系上报数据
         for monitor_data in monitor_data_list:
             instance = monitor_data['instance']
@@ -117,6 +116,3 @@ class AwsCollector(object):
         for metric_name, prom_gauge_info in generates.items():
             yield_prom_gauge = prom_gauge_info['prom_metric_gauge']
             yield yield_prom_gauge
-
-
-

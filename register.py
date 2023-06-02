@@ -1,13 +1,12 @@
 import time
 import threading
 from conf.configs import cache_invalidation_time
+from service.aws_svc import AwsSvc
 
 
 def cache_product(product):
-    if product == 'redis':
-        from service.aws_redis.aws_redis_svc import AwsRedisSvc
-        aws_redis_svc = AwsRedisSvc()
-        start_cache_job(aws_redis_svc.get_redis_cache)
+    aws_svc = AwsSvc(product)
+    start_cache_job(aws_svc.get_cache)
 
 
 def start_cache_job(func):

@@ -1,41 +1,45 @@
-from models.aws_redis.aws_redis_info import AwsRedis
+# from models.aws.aws_info import AwsRedis
+from models.aws_account_product import get_account_aws_instances
 from models.aws_account.aws_account import get_account_info
 from lib.redis_client import r
 from lib.aws_client import get_client
 from lib.logger import logs
 from conf.configs import cache_invalidation_time
+from lib.tool import retry
 
 
-class AwsRedisSvc:
-    def __init__(self):
-        pass
+class AwsSvc:
+    def __init__(self, product):
+        self.product = product
 
-    def get_all_aws_redis_instances(self):
+    def get_all_aws_instances(self):
         # 获取所有账号信息
-        all_redis = {}
+        aws_instance = {}
         aws_accounts = get_account_info()
         for account, aws_account in aws_accounts.items():
             regions = aws_account['regions']
             ak = aws_account['ak']
             sk = aws_account['sk']
-            redis_obj = AwsRedis(ak=ak, sk=sk, regions=regions)
-            account_aws_redis_instances = redis_obj.get_account_aws_redis_instances(account)
-            all_redis[account] = account_aws_redis_instances
-        return all_redis
+            # redis_obj = AwsRedis(ak=ak, sk=sk, regions=regions)
+            # account_aws_instances = redis_obj.get_account_aws_instances(account)
+            account_aws_instances = get_account_aws_instances(ak, sk, regions, account, self.product)
+            aws_instance[account] = account_aws_instances
+        return aws_instance
 
-    def cache_all_aws_redis_instances(self):
-        aws_redis_infos = self.get_all_aws_redis_instances()
-        r.set('aws_redis_infos', str(aws_redis_infos), ex=cache_invalidation_time)
+    def cache_all_aws_instances(self):
+        aws_instance_infos = self.get_all_aws_instances()
+        r.set('aws_%s_infos' % self.product, str(aws_instance_infos), ex=cache_invalidation_time)
 
-    def get_redis_cache(self):
-        aws_redis_infos = r.get('aws_redis_infos')
-        if aws_redis_infos is None:
+    def get_cache(self):
+        aws_instance_infos = r.get('aws_%s_infos' % self.product)
+        if aws_instance_infos is None:
             # 重新加载缓存
-            logs.info('reset aws redis instance cache')
-            self.cache_all_aws_redis_instances()
-        aws_redis_infos = r.get('aws_redis_infos')
-        return eval(aws_redis_infos)
+            logs.info('reset aws %s instance cache' % self.product)
+            self.cache_all_aws_instances()
+        aws_instance_infos = r.get('aws_%s_infos' % self.product)
+        return eval(aws_instance_infos)
 
+    @retry()
     def get_monitor_data(self, account, region, mqs, start_time, end_time, monitor_queue):
         monitor_data = []
         account_info_dict = get_account_info()

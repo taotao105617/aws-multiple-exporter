@@ -1,9 +1,9 @@
-env: 'online'
+env: 'dev'
 
 aws_account_infos:
-  - account: 'xxxx'
-    ak: 'xxxx'
-    sk: 'xxxxx'
+  - account: 'xx'
+    ak: 'xx'
+    sk: 'xxx'
     regions: 'us-east-1,ap-southeast-1,eu-central-1,sa-east-1'
 
 address_ports:
@@ -16,6 +16,7 @@ redis_configs:
   redis_ports: 6379
   redis_password:
   cache_invalidation_time: 1000
+
 
 
 

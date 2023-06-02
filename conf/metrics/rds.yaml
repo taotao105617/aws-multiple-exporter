@@ -3,7 +3,7 @@ task:
     metrics:
       - metric_name: CPUUtilization
         statistics: Average
-        metric_desc: 'DESC: redis cpu unit: %'
+        metric_desc: 'DESC: CPU使用率 unit: %'
       - metric_name: FreeableMemory
         statistics: Average
         metric_desc: 'DESC: 可用内存 unit: MB'

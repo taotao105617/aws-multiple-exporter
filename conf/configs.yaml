@@ -1,0 +1,21 @@
+env: 'online'
+
+aws_account_infos:
+  - account: 'xxxx'
+    ak: 'xxxx'
+    sk: 'xxxxx'
+    regions: 'us-east-1,ap-southeast-1,eu-central-1,sa-east-1'
+
+address_ports:
+  redis: 8888
+  rds: 8889
+
+
+redis_configs:
+  redis_address: '127.0.0.1'
+  redis_ports: 6379
+  redis_password:
+  cache_invalidation_time: 1000
+
+
+

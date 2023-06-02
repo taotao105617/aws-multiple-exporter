@@ -2,10 +2,13 @@ import time
 import sys
 from prometheus_client import start_http_server
 from register import cache_product
-from conf.configs import address_ports, env
+from conf.configs import configs
 from lib.logger import logs
 from controller.prom_collect import AwsCollector
 from prometheus_client.core import REGISTRY
+
+address_ports = configs.get('address_ports')
+env = configs.get('env')
 
 
 def help():
@@ -23,7 +26,6 @@ if __name__ == '__main__':
         product = args[1]
     else:
         product = 'redis'
-
     if product not in address_ports.keys():
         help()
     try:

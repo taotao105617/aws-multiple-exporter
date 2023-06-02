@@ -13,6 +13,9 @@ from conf.configs import ProductNamespaceF
 
 # 计算调用cloudwatch次数，可用于评估费用
 aws_cloudwatch_request_count = Counter('aws_cloudwatch_request_count', 'DESC: 调用cloudwatch次数 unit: count', ['product'])
+# 计算调用cloudwatch指标总数
+aws_cloudwatch_metric_request = Counter('aws_cloudwatch_metric_request_count', 'DESC: 调用cloudwatch 指标总数 unit: '
+                                                                               'count', ['product'])
 
 
 class AwsCollector(object):
@@ -69,6 +72,7 @@ class AwsCollector(object):
                 for mqs in mqs_list:
                     num += 1
                     aws_cloudwatch_request_count.labels(product=self.product).inc()
+                    aws_cloudwatch_metric_request.labels(product=self.product).inc(len(mqs))
                     # 多线程获取监控数据
                     t = threading.Thread(target=aws_svc.get_monitor_data, args=(account, region, mqs, start_time,
                                                                                 end_time, monitor_queue))

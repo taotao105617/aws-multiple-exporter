@@ -1,14 +1,15 @@
+from lib.yaml_reader import YamlReader
 logs_dir = './logs'
 # 环境
-env = 'online'
-# 启动端口
-address_ports = {
-    'redis': 8888
-}
+# env = 'online'
+# # 启动端口
+# address_ports = {
+#     'redis': 8888
+# }
 # redis 配置
-redis_address = '127.0.0.1'
-redis_ports = 6379
-redis_password = None
+# redis_address = '127.0.0.1'
+# redis_ports = 6379
+# redis_password = None
 cache_invalidation_time = 1000
 
 
@@ -25,15 +26,25 @@ ProductNamespaceF = {
 }
 
 # aws 账号信息
-aws_account_infos = [
-    {
-        'account': 'xxx',
-        'ak': 'xxxx',
-        'sk': 'xxxx',
-        'regions': 'us-east-1,ap-southeast-1,eu-central-1,sa-east-1'
-    }
-]
+# aws_account_infos = [
+#     {
+#         'account': 'xxx',
+#         'ak': 'xxxx',
+#         'sk': 'xxxx',
+#         'regions': 'us-east-1,ap-southeast-1,eu-central-1,sa-east-1'
+#     }
+# ]
 
 
+class Configs:
+    def __init__(self):
+        self.yaml_reader = YamlReader(file='configs.yaml', path='conf/')
+
+    def get(self, key):
+        data = self.yaml_reader.read()
+        return data.get(key)
+
+
+configs = Configs()
 
 

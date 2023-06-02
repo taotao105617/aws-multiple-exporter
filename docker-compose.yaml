@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  redis:
-    image: "aws-exporter-app:latest"
+  redis-exporter:
+    image: "aws-exporter-app:VERSION"
     command: python3 app.py redis
     restart: always
     network_mode: host
@@ -10,10 +10,11 @@ services:
       - redis-exporter
     volumes:
       - ./conf/metrics:/app/conf/metrics
+      - ./conf/configs.yaml:/app/conf/configs.yaml
     environment:
       TZ: Asia/Shanghai
 
-  redis-exporter:
+  redis:
     image: "redis:6.2"
     hostname: redis
     restart: always

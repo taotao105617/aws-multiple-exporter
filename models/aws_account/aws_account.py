@@ -1,7 +1,8 @@
-from conf.configs import aws_account_infos
+from conf.configs import configs
 
 
 def get_account_info():
+    aws_account_infos = configs.get('aws_account_infos')
     account_dict = {}
     for i, aws_account_info in enumerate(aws_account_infos):
         account = aws_account_info['account']

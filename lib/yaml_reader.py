@@ -1,11 +1,10 @@
 import yaml
-import json
 import os
 
 
 class YamlReader:
-    def __init__(self, file):
-        file_path = os.path.abspath(os.path.join('conf/metrics', file))
+    def __init__(self, file, path='conf/metrics'):
+        file_path = os.path.abspath(os.path.join(path, file))
         self.file_path = file_path
 
     def init(self):

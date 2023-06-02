@@ -7,7 +7,19 @@ services:
     restart: always
     network_mode: host
     depends_on:
-      - redis-exporter
+      - redis
+    volumes:
+      - ./conf/metrics:/app/conf/metrics
+      - ./conf/configs.yaml:/app/conf/configs.yaml
+    environment:
+      TZ: Asia/Shanghai
+  rds-exporter:
+    image: "aws-exporter-app:VERSION"
+    command: python3 app.py rds
+    restart: always
+    network_mode: host
+    depends_on:
+      - redis
     volumes:
       - ./conf/metrics:/app/conf/metrics
       - ./conf/configs.yaml:/app/conf/configs.yaml

@@ -22,6 +22,7 @@ class AwsRds:
             port = instance_info['Endpoint']['Port']
             zone = instance_info['AvailabilityZone']
             instance = instance_info['DBInstanceIdentifier']
+            allocated_storage = instance_info['AllocatedStorage']
             aws_rds[region][instance] = {
                 'tags': self.tags_list2dict(tags),
                 'host': host,
@@ -30,6 +31,7 @@ class AwsRds:
                 'zone': zone,
                 'instance': instance,
                 'account': account,
+                'allocated_storage': allocated_storage
             }
         # 推送数据到消息队列
         result_queue.put(aws_rds)

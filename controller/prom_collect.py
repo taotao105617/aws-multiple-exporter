@@ -6,7 +6,7 @@ from prometheus_client.core import GaugeMetricFamily
 from prometheus_client import Counter
 from service.aws_svc import AwsSvc
 from lib.yaml_reader import YamlReader
-from lib.tool import camel_to_underline, get_lbs, get_instance_lb
+from lib.tool import camel_to_underline, get_lbs, get_instance_lb, merge_dict
 from lib.aws_client import metric_data_queries
 from lib.logger import logs
 from conf.configs import ProductNamespaceF
@@ -38,13 +38,13 @@ class AwsCollector(object):
                 statistics = metric_info['statistics']
                 prom_name = 'aws_' + namespace + '_' + camel_to_underline(metric_name) + '_' + \
                             camel_to_underline(statistics)
-                metric_desc = metric.get('metric_desc', '')
+                metric_desc = metric_info.get('metric_desc', '')
                 prom_metric_gauge = GaugeMetricFamily(prom_name, metric_desc, labels=get_lbs())
                 generates[metric_name] = {
                     'prom_metric_gauge': prom_metric_gauge,
                     'statistics': statistics
                 }
-                logs.info("generate metrics %s" % prom_name)
+                logs.info("generate metrics: %s metric_desc: %s" % (prom_name, metric_desc))
         return generates
 
     def get_product_instance_info(self):
@@ -90,6 +90,15 @@ class AwsCollector(object):
             monitor_data_list += monitor_queue.get()
         return monitor_data_list
 
+    def aws_product_spec(self, instance_infos):
+        generates_spec = {}
+        if self.product == 'rds':
+            from controller.aws_rds.aws_rds import aws_rds_exporter
+            # t = threading.Thread(target=aws_rds_exporter, args=(instance_infos,))
+            # t.start()
+            generates_spec = aws_rds_exporter(instance_infos)
+        return generates_spec
+
     def collect(self):
         # 生成prometheus gauge对象
         generates = self.generate_metrics()
@@ -112,6 +121,9 @@ class AwsCollector(object):
 
             prom_gauge = generates[metric_name]['prom_metric_gauge']
             prom_gauge.add_metric(instance_labels, value)
+        # 实例规格类
+        generates_spec = self.aws_product_spec(aws_instance_infos)
+        generates = merge_dict(generates, generates_spec)
         # yield prometheus 对象
         for metric_name, prom_gauge_info in generates.items():
             yield_prom_gauge = prom_gauge_info['prom_metric_gauge']

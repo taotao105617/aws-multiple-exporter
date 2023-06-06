@@ -53,4 +53,4 @@ def metric_data_queries(aws_instance_infos, namespace, instance_type, generates)
                         mqs = []
                     mqs.append(mq)
             mqs_dict[account][region].append(mqs)
-        return mqs_dict
+    return mqs_dict

@@ -32,4 +32,3 @@ class Configs:
 
 
 configs = Configs()
-

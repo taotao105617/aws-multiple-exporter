@@ -6,7 +6,19 @@ task:
         metric_desc: 'DESC: redis cpu unit: %'
       - metric_name: FreeableMemory
         statistics: Average
-        metric_desc: 'DESC: 可用内存 unit: MB'
+        metric_desc: 'DESC: 可用内存 unit: byte'
+      - metric_name: NetworkBytesIn
+        statistics: Average
+        metric_desc: 'DESC: 主机已从网络读取的字节数 unit: byte'
+      - metric_name: NetworkBytesOut
+        statistics: Average
+        metric_desc: 'DESC: 实例在所有网络接口上发送的字节数 unit: byte'
+      - metric_name: NetworkPacketsIn
+        statistics: Average
+        metric_desc: 'DESC: 实例在所有网络接口上收到的数据包的数量 unit: count'
+      - metric_name: NetworkPacketsOut
+        statistics: Average
+        metric_desc: 'DESC: 实例在所有网络接口上发送的数据包的数量 unit: count'
       - metric_name: ActiveDefragHits
         statistics: Average
         metric_desc: 'DESC: 活动碎片整理进程每分钟执行的值重新分配次数 unit: count'
@@ -57,7 +69,7 @@ task:
         metric_desc: 'DESC: 正在使用的集群内存百分比，不包括用于开销和 COB 的内存 unit: %'
       - metric_name: DB0AverageTTL
         statistics: Average
-        metric_desc: 'DESC: DB0AverageTTL unit: count'
+        metric_desc: 'DESC: DB0AverageTTL unit: ms'
       - metric_name: EngineCPUUtilization
         statistics: Average
         metric_desc: 'DESC: 提供 Redis 引擎线程的 CPU 使用率 unit: %'

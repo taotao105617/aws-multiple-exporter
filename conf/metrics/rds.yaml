@@ -6,10 +6,10 @@ task:
         metric_desc: 'DESC: CPU使用率 unit: %'
       - metric_name: FreeableMemory
         statistics: Average
-        metric_desc: 'DESC: 可用内存 unit: MB'
+        metric_desc: 'DESC: 可用内存 unit: byte'
       - metric_name: BinLogDiskUsage
         statistics: Average
-        metric_desc: 'DESC: 二进制日志占用的磁盘空间量 unit: MB'
+        metric_desc: 'DESC: 二进制日志占用的磁盘空间量 unit: byte'
       - metric_name: CheckpointLag
         statistics: Average
         metric_desc: 'DESC: 自最近检查点以来的时间量 unit: s'
@@ -24,10 +24,10 @@ task:
         metric_desc: 'DESC: 等待访问磁盘的未完成 I/O（读/写请求）数 unit: count'
       - metric_name: FreeLocalStorage
         statistics: Average
-        metric_desc: 'DESC: 可用的本地存储空间量 unit: MB'
+        metric_desc: 'DESC: 可用的本地存储空间量 unit: byte'
       - metric_name: FreeStorageSpace
         statistics: Average
-        metric_desc: 'DESC: 可用存储空间量 unit: MB'
+        metric_desc: 'DESC: 可用存储空间量 unit: byte'
       - metric_name: NetworkReceiveThroughput
         statistics: Average
         metric_desc: 'DESC: 网络接收吞吐量 unit: MB/s'
@@ -58,3 +58,9 @@ task:
       - metric_name: WriteThroughput
         statistics: Average
         metric_desc: 'DESC: 写入吞吐量 unit: MB/s'
+      - metric_name: SwapUsage
+        statistics: Average
+        metric_desc: 'DESC: 交换空间使用情况 unit: byte'
+#      - metric_name: Deadlocks
+#        statistics: Average
+#        metric_desc: 'DESC: 死锁数 unit: count'

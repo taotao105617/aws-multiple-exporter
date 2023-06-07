@@ -60,7 +60,3 @@ task:
         metric_desc: 'DESC: 写入吞吐量 unit: byte/s'
       - metric_name: SwapUsage
         statistics: Average
-        metric_desc: 'DESC: 交换空间使用情况 unit: byte'
-#      - metric_name: Deadlocks
-#        statistics: Average
-#        metric_desc: 'DESC: 死锁数 unit: count'

@@ -48,7 +48,7 @@ task:
         metric_desc: 'DESC: 用户尝试访问他们无权访问的频道失败的总次数 unit: count'
       - metric_name: CurrConnections
         statistics: Average
-        metric_desc: 'DESC: 客户端连接数，不包括来自只读副本的连接 unit: count'
+        metric_desc: 'DESC: 当前连接数，不包括来自只读副本的连接 unit: count'
       - metric_name: CurrItems
         statistics: Average
         metric_desc: 'DESC: 缓存中的key数。这是从 Redis keyspace统计数据得出的，对整个键空间中的所有键求和 unit: count'
@@ -87,7 +87,7 @@ task:
         metric_desc: 'DESC: 表示Redis引擎分配内存的效率。某些阈值表示不同的行为。推荐值是让碎片高于 1.0。这是从 Redis INFOmem_fragmentation_ratio statistic的计算出来的. unit: count'
       - metric_name: NewConnections
         statistics: Average
-        metric_desc: 'DESC: 在此期间服务器已接受的连接总数 unit: count'
+        metric_desc: 'DESC: 新建连接数 unit: count'
       - metric_name: NumItemsReadFromDisk
         statistics: Average
         metric_desc: 'DESC: 每分钟从磁盘检索的键值对的数量 unit: count'

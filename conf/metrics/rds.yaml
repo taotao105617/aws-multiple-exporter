@@ -30,10 +30,10 @@ task:
         metric_desc: 'DESC: 可用存储空间量 unit: byte'
       - metric_name: NetworkReceiveThroughput
         statistics: Average
-        metric_desc: 'DESC: 网络接收吞吐量 unit: MB/s'
+        metric_desc: 'DESC: 网络接收吞吐量 unit: byte/s'
       - metric_name: NetworkTransmitThroughput
         statistics: Average
-        metric_desc: 'DESC: 网络传输吞吐量 unit: MB/s'
+        metric_desc: 'DESC: 网络传输吞吐量 unit: byte/s'
       - metric_name: OldestReplicationSlotLag
         statistics: Average
         metric_desc: 'DESC: 最早的复制槽滞后 unit: byte'
@@ -57,7 +57,7 @@ task:
         metric_desc: 'DESC: 写入延迟 unit: count/s'
       - metric_name: WriteThroughput
         statistics: Average
-        metric_desc: 'DESC: 写入吞吐量 unit: MB/s'
+        metric_desc: 'DESC: 写入吞吐量 unit: byte/s'
       - metric_name: SwapUsage
         statistics: Average
         metric_desc: 'DESC: 交换空间使用情况 unit: byte'
